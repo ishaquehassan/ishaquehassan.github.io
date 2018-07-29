@@ -1,0 +1,26 @@
+{
+  "environment": "web",
+  "source": "16QghsbJdmJ44YDq5Lpr8nLP8KeJ8ajCMYWmVssvyrqA",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2018-07-29T21:17:00Z",
+  "id": "face-detection-vision-api-ki-madad-sai",
+  "duration": 0,
+  "title": "Face Detection (Chehrai ko phechanna) Mobile Vision API ki madad sai",
+  "author": "Ishaq Hassan",
+  "summary": "Is codelab mai aap seekhingai face detect krwana Google ki Vision API ki madad sai.",
+  "theme": "android",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Android"
+  ],
+  "tags": [
+    "android",
+    "vision api"
+  ],
+  "feedback": "https://github.com/ishaquehassan/Codelab-FaceDetectionWithTheMobileVisionAPI/issues",
+  "url": "face-detection-vision-api-ki-madad-sai"
+}

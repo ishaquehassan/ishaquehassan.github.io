@@ -1,0 +1,240 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Face Detection (Chehrai ko phechanna) Mobile Vision API ki madad sai</title>
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../elements/codelab.html">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <style is="custom-style">
+    body {
+      font-family: "Roboto",sans-serif;
+      background: var(--google-codelab-background, #F8F9FA);
+    }
+  </style>
+  
+</head>
+<body unresolved class="fullbleed">
+
+  <google-codelab title="Face Detection (Chehrai ko phechanna) Mobile Vision API ki madad sai"
+                  environment="web"
+                  feedback-link="https://github.com/ishaquehassan/Codelab-FaceDetectionWithTheMobileVisionAPI/issues">
+    
+      <google-codelab-step label="Overview - (Jaiza)" duration="0">
+        <p>Google Play services v7.8 ki release mai ye saholat di gae hai k aap nae Mobile Vision APis ko istemaal kar saktai hain jismai chehrai ko Pechannai (Face Detection) ki APIs b shamil hai jiski waja sai aap ab images aur videos mai sai chehron kai tassurat<strong>(Emotions)</strong>, unkai barai mai tafseelat<strong>(facial features)</strong> aur dosri maloomat ko istemaal kar saktai hain. Ye Codelab <strong>kotlin </strong>par banai gae hai.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Face Detection - (Chehrai ko Pehchanna)" duration="0">
+        <p>Face Detection (Chehrai ko Pehchanna) ab android ki FaceDetector.Face API. sai bht agai hai. Isai banaya gya hai insanon kai chehron ko Images aur videos mai bethter treeqai sai pehchan kr un mai tabdeeli<strong>(Editing)</strong> krnai k lia asani sai. Ye salahiyat rakhta h chehron<strong>(Faces) </strong>ko mukhtalif zavion<strong>(Orietations) </strong>pai pehchanai ki islia agar ksi tasweer mai sar agar thora tirchai zavia p ho tou  bhe ye usai pehchan sakta hai. Iskai elava ye kuch khusosiyat aur jesa k ankhen, naak aur honton kai kinarai bhe pechan sakta hai.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Prerequisites - (Shuru krnsai sai pehlai ki zaroriat)" duration="0">
+        <p>Shuru krai sai qabal apkai pas madarja-zail zrori chezen honi chaheyain:</p>
+<ul>
+<li><a href="https://developer.android.com/studio/" target="_blank">Android Studio</a></li>
+<li>Aik Android Device<strong>(Mobile)</strong> jo k Android kai 4.2.2 version sai uper ya brabar ho ya Phir aik Android emulator jo k Android Studio mai he mojood hoga.</li>
+<li>Android studio ka naya version jismai <strong>SDK (Software Development Kit)  tools component </strong>bhe shamil ho. Isai aap hasil kar saktai hain <strong>SDK manager </strong>sai jo k Android studio mai he mojood hai.</li>
+<li><strong>Google Play Services SDK </strong>jo k Android studio kai <strong>SDK manager</strong>  mai he mojood hai.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Aise App Banana jo chehrai pehchan sakai" duration="0">
+        <p>Is marhalai mai aap seekhigai kesai aik bunyadi app create ki jati hai jismai aap agai jaa k <strong>Sign In</strong> ka code bhe shamil kringai.</p>
+<h2><strong>Nae App Bananai ka treeqa</strong></h2>
+<p><strong>Android Studio </strong>kholen aur <strong>Start a new Android Studio project </strong>par click kren.</p>
+<p><img style="max-width: 673.75px" src="img/403f51c241cded05.png"></p>
+<p>Click krnai kai bad apkai samnai <strong>Create Android Project </strong>ki window aige. Is window mai <strong>Include Kotlin Support</strong> pai lazmi click kren.</p>
+<p><img style="max-width: 673.50px" src="img/1b7158a6d4dbd87c.png"></p>
+<p>Iskai bad <strong>Next </strong>kai button par click kren.</p>
+<p><img style="max-width: 670.50px" src="img/a809ab7e3baa5b7a.png"></p>
+<p>Ismai Pehlai sai muntakhib chezon ko rakh kr <strong>Next </strong>par click kren.</p>
+<p><img style="max-width: 670.05px" src="img/ff2421d4ea895da4.png"></p>
+<p>Yaha <strong>Empty Activity </strong>muntakhib kren aur <strong>Next </strong>par click kren. Iskai bad muntakhid krda settings rehnnai dein aur <strong>Finish</strong> par click kren.</p>
+<p><img style="max-width: 671.50px" src="img/16255206d29b7684.png"></p>
+<h2><strong>Tarteeb dein Build.gradle ko</strong></h2>
+<p>Is marhalai mai ap is cheez ko yaqeeni banaingai k ap ki <strong>build.gradle</strong> file <strong>Google Play Services</strong> kai usi version ki istemaal krrahe ho jismai <strong>Mobile Vision API </strong>ki sahulat di gai hai. Iskai lia apko <strong>build.gradle</strong> ko sahe krna hoga.</p>
+<p><strong>Android Studio </strong>mai kholen <strong>Gradle Scripts </strong>node kholen aur select kren <strong>build.gradle (Module: app) </strong></p>
+<p><img style="max-width: 413.56px" src="img/965fa7aa56f8e6a3.png"></p>
+<p>Isko click krnai k bad jo <strong>build.gradle </strong>ki file open hoge uskai nechai scroll kar k jain jaha code kuch is trha ka hoga</p>
+<p><img style="max-width: 624.00px" src="img/a753437fac9e9699.png"></p>
+<p>Ismai apko <strong>Google Play Services </strong>ki dependency is trha add krni hai<br></p>
+<p><img style="max-width: 624.00px" src="img/2f70a56321e13276.png"></p>
+<p>Agar apko kahen nishandahe dikhai jismai kuch is trha sai likha ho <img style="max-width: 74.73px" src="img/1aa6bd52832d0e.png"> tou uspai click kren wrna <strong>Sync Project with Gradle Files </strong><img style="max-width: 25.31px" src="img/6cb5a3a336c21830.png"> kai is icon p click kren.</p>
+<p><img style="max-width: 416.00px" src="img/8864248e5d1e5c51.png"></p>
+<h2><strong>Google Play Services ko Update kren</strong></h2>
+<p><strong>Google Play Services </strong>aksar update hoti rehti hain aur ye codelab is chez ko madde nzar rakh k banani gae h k aap k pas haal he mai released version mojood hai. Naya version download krnai k lia <strong>Android Studio </strong>mai <strong>Tools &gt; Android &gt; SDK Manager </strong>par click kren.</p>
+<p><img style="max-width: 272.50px" src="img/bea7ea8aec67c724.png"></p>
+<p>Iskai bad jo window apkai samnai aige usmai <strong>SDK Tools </strong>par click kren aur waha <strong>Google Play Services </strong>dhondain aur dekhen k uska version 26 ya ussai ziyada ho.</p>
+<p><img style="max-width: 754.65px" src="img/47be02e85e8bcf35.png"></p>
+<h2><strong>Banain aik bunyadi UI</strong></h2>
+<p>Ab Jabkai apki app puri trha tarteeb mai achuki hai, ab humai aik <strong>UI (User Interface) </strong>tarteeb dena h jis ki madad sai user <strong>Face Detect </strong>kara sakai aur tasweer kai uper box dikha sakai jaha face ho.</p>
+<p>Android Studio mai kholen <strong>res </strong>folder kholen aur usmai <strong>layout </strong>ka folder kholen jismai <code>activity_main.xml</code><strong> </strong>ki file hoge, usai khol len.</p>
+<p><img style="max-width: 759.50px" src="img/d617023d220ecaee.png"></p>
+<p>Is file mai likhai huai code ko is code sai tabdeel kren</p>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;RelativeLayout
+    xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+    xmlns:tools=&#34;http://schemas.android.com/tools&#34;
+    android:layout_width=&#34;match_parent&#34;
+    android:layout_height=&#34;match_parent&#34;
+    tools:context=&#34;.MainActivity&#34;&gt;
+
+    &lt;Button
+        android:layout_width=&#34;wrap_content&#34;
+        android:layout_height=&#34;wrap_content&#34;
+        android:text=&#34;Process&#34;
+        android:id=&#34;@+id/button&#34;
+        android:layout_alignParentTop=&#34;true&#34;
+        android:layout_alignParentStart=&#34;true&#34; /&gt;
+
+    &lt;ImageView
+        android:layout_width=&#34;wrap_content&#34;
+        android:layout_height=&#34;wrap_content&#34;
+        android:id=&#34;@+id/imgview&#34;/&gt;
+
+&lt;/RelativeLayout&gt;</code></pre>
+<p>Ye code apko aik <strong>loading </strong>aur uskai bad Image processing dikhai ga, jo k <strong>ImageView </strong>mai aai ge.</p>
+<h2><strong>Apni AndroidManifest.xml ko Edit kren</strong></h2>
+<p>Apko ab<strong> AndroidManifest.xml </strong>khol kr usmai ye line add krni hoge.</p>
+<pre><code>&lt;meta-data 
+     android:name=&#34;com.google.android.gms.vision.DEPENDENCIES&#34;
+     android:value=&#34;face&#34; /&gt;</code></pre>
+<p>Jo k kuch is trha hoge</p>
+<p><img style="max-width: 787.03px" src="img/24b2ad67f739a0a0.png"></p>
+<p>Ye code is baat ko yqeeni banata h k <strong>Face Detection </strong>ko istemaal krnai ki tamaam sahuliat mojood hain ya nh.</p>
+<h2><strong>Apni app mai Face Detection add kren</strong></h2>
+<p>Amouman aap pictures camera sai laitai hain magar ye treeqa istemaal krnai k lia thora aur code use krna hota hai jo k aap agai kai steps mai daikhingai. Filhal cheezon ko asaan rakhnai k lia humnai apki app mai rakhe hui aik picture istemaal ki hai.</p>
+<p>Ye rahe wo Picture:</p>
+<p><img style="max-width: 624.00px" src="img/c28af9f476d20d11.png"></p>
+<p>Picture  - &#34;Woman and a chiwawa dog&#34; Peter van der Sluijs ki janib sai li gae hai, jo k mojood hai <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en" target="_blank">CC 3.0 license</a> kai tehet,  <a href="https://commons.wikimedia.org/wiki/File:Woman_and_chiwawa_dog.JPG" target="_blank">yaha</a> sai li gae hai.</p>
+<p>Is Picture ko save kren <strong>res/drawable</strong> kai folder mai aur iska naam rekhen test1.jpg, apko dikh jaiga k <strong>Android Studio </strong>us image ko accessible bana dega resources mai <code>R.drawable.test1</code></p>
+<p>Ab jab k apkai pas image aachuki hai, tou ab aap apni app ko code krna churu krsaktai hain!</p>
+<p><img style="max-width: 356.50px" src="img/89724539ba7c56fb.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Apni app ko Code krna" duration="0">
+        <p>Is application mai sirf aik he button hai jo image ko load krega aur iskai saath saath image ko process b kraiga <strong>Face Detectionn </strong>k lia. Ain daikhtai hainn ye kesai code krna hai:</p>
+<h2><strong>Includes (Shamholiat)</strong></h2>
+<p>Agar apko zarorat ho k ye app kon kon si <strong>Classes/Packages </strong>use kr rahe hai tou uskai lia ye <strong>Imports </strong>dia gai hain</p>
+<pre><code>import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import android.app.AlertDialog
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.RectF
+import android.graphics.drawable.BitmapDrawable
+import android.widget.Button
+import android.widget.ImageView
+import com.google.android.gms.vision.Frame
+import com.google.android.gms.vision.face.FaceDetector</code></pre>
+<h2><strong>Button ko code sai jorna</strong></h2>
+<p>Apni <strong>MainActivity.kt </strong>kholen aur usmai <strong>onCreate </strong> kai <strong>function </strong>mai ye code add kren:</p>
+<pre><code>val button:Button = findViewById(R.id.button)
+button.setOnClickListener {
+
+}</code></pre>
+<p>Ye code hamarai <strong>Button </strong>ko click krnai par honai walai kam ko sambhalai ga. Jismai humai image ko load krana hai, process krna hai <strong>Face Detection </strong>k lia aur jaha b <strong>Chehra (Face) </strong>milai waha red rectangle banana hai.</p>
+<h2><strong>Image ko Lana</strong></h2>
+<p>AIn <strong>image</strong> ko load krtai hain. Hum <strong>Image </strong>tabdeel krnai walai hain (<strong>Red Rectangle </strong>banai walai hain jaha b Chehra (Face) milai), iskai lia humai <strong>bitmap</strong> ko <strong>mutable (Tabdeel hosaknai wala) </strong>bananna hoga. Ye uskai marahil hain - Pehlai humai <strong>ImageView</strong> ka <strong>Refrence (Hawala) </strong>lena hoga bad mai istemaal krnai k lia. Uskai bad <strong>BitmapFactory </strong>istemaal krni hoge <strong>Image </strong>ko load krnai k lia. Yad rahai k <strong>Image</strong> humai <code>R.drawable.test1</code> sai mil sakti hai. Agar aap nai koi dosra naam istemaal kia hai tou apko <code>test1</code> ko apnai dia gai naam sai tabdeel krna hoga. <strong>Auto Complete </strong>jo k <strong>Android Studio </strong>mai mojood hai ismai apka madadgar sabit hoga.</p>
+<pre><code>val myImageView:ImageView = findViewById(R.id.imgview)
+val options = BitmapFactory.Options()
+options.inMutable = true
+val myBitmap = BitmapFactory.decodeResource(
+   applicationContext.resources,
+   R.drawable.test1,
+   options)</code></pre>
+<h2><strong>Paint kai Object ko banana Draw krnai k lia</strong></h2>
+<p>Ab apko <strong>Paint </strong>ka object banana hoga jo k <strong>Image </strong>par draw kar saktain hon. Ye banai ga aik <strong>Stroke (Line)</strong> 5 Pixel ki jiska matlab ye hai k jab ye <strong>shape</strong> (<strong>Rectangle</strong>) banai ga tou ye usai bharai ga nh sirf uskai atraaf mai 5 Pixel ki line bana dega jiska color <strong>Red </strong>hoga.</p>
+<pre><code>val myRectPaint = Paint()
+myRectPaint.strokeWidth = 5f
+myRectPaint.color = Color.RED
+myRectPaint.style = Paint.Style.STROKE</code></pre>
+<h2><strong>Canvas banana Draw krnai k lia</strong></h2>
+<p>Ab create krni hai aik arzi <strong>Bitmap </strong>asli <strong>Bitmap </strong>ko istemaal krtai huai jissai hum aik naya <strong>Canvas </strong>banaingai jo k uspai draw krega.</p>
+<pre><code>val tempBitmap = Bitmap.createBitmap(myBitmap.width, myBitmap.height, Bitmap.Config.RGB_565)
+val tempCanvas = Canvas(tempBitmap)
+tempCanvas.drawBitmap(myBitmap, 0F, 0F, null)</code></pre>
+<h2><strong>Face Detector banain</strong></h2>
+<p>Humai naya <strong>FaceDetector </strong>object banana hoga <strong>Builder </strong>ki madad sai.</p>
+<p>Jesa kai humnai apni <strong>AndroidManifest.xml </strong>mai code add kia tha jo humai <strong>Face Detection </strong>ki zarori chezen hamarai istemaal krnai sai pehlai he faraham krdega magar ye b imkaan hai k jis waqt humari app kaam krai. <strong>Google Play Services</strong> tyyar na hon <strong>Face Detection </strong>k lia. Islia humai pehklai <strong>Detector </strong>ko test krnna hoga k wo tyyar hai ya nh. Agar wo is waqt tyyar nh tou humai  user ko batana hoga k usai sabar krna hoga jab tak wo download ho jai ya <strong>Internet </strong>ki sahulat muyassir krni hoge ya phir apni Device mai <strong>jaga (Storage)</strong> khali krni hoge </p>
+<pre><code>val faceDetector = FaceDetector.Builder(applicationContext).setTrackingEnabled(false).build()
+
+if (!faceDetector.isOperational) {
+    AlertDialog.Builder(this).setMessage(&#34;Could not set up the face detector!&#34;).show()
+    return
+}</code></pre>
+<p><strong>Dehan rahai </strong>: Ye codelab is cheez ko madd e nazar rakh k banai gai h k aap aik <strong>Image </strong>pai <strong>Face Detect </strong>karwa rahai hain, agar apka maqsad <strong>Fcaes (Chehron) </strong>ko <strong>video</strong> ya <strong>camera</strong> sai <strong>Live Preview </strong> mai detect krnawana hai tou apko <strong>tracking </strong>ko enable krna hoga <strong>faceDetector </strong>kai object par <strong>trackingEnabled</strong> ko <strong>true </strong>kr k.</p>
+<h2><strong>Chehrai ki pehchan kren</strong></h2>
+<p>Ab hum tyyar hain <strong>Face Detect (Chehrai ko Pehchanai) </strong>kai lia. Ye kafi asaan hai, aik <strong>Frame </strong>banain <strong>Bitmap </strong>ko istemaal krtai huai aur <strong>detect </strong> method call kren <strong>FaceDetector </strong>kai object par.Isi <strong>Frame </strong> ko hum use kringai <strong>SparseArray </strong>lanai k lia <strong>face objects</strong> ki.</p>
+<pre><code>val frame = Frame.Builder().setBitmap(myBitmap).build()
+val faces = faceDetector.detect(frame)</code></pre>
+<h2><strong>Banain Rectangles Chehron par</strong></h2>
+<p>Is marhalai par apkai pas ab aik <strong>SparseArray </strong>hai <strong>faces(Chehron) </strong>ki. Ispar aap <strong>iterate </strong>kar k pata kar saktai hain k konsa face <strong>Image </strong>mai kis jaga par hai jiski madad sai aap <strong>Rectangle </strong>ko bata saktai hain k kaha <strong>draw </strong>hona hai. Ye <strong>API (Application Programming Interface) </strong>apko deti hai x,y coordinates top aur left corner kai, iskai saath saath width aur height bhe. <strong>Rectangle </strong>ko chaheyai hota hai top,left,bottom aur right corners, islia apko hisab lagana hoga bottom aur right corners ka top,left aur with aur heght ki madad sai. Code nechai dia gaya hai:</p>
+<pre><code>for (i in 0 until faces.size()) {
+   val thisFace = faces.valueAt(i)
+   val x1 = thisFace.position.x
+   val y1 = thisFace.position.y
+   val x2 = x1 + thisFace.width
+   val y2 = y1 + thisFace.height
+   tempCanvas.drawRoundRect(RectF(x1, y1, x2, y2), 2f, 2f, myRectPaint)
+}
+myImageView.setImageDrawable(BitmapDrawable(resources,tempBitmap))</code></pre>
+<h2><strong>Nataij</strong></h2>
+<p>Ab apko sirf app chalani hai. Issai aap daikhingai k <code>test1</code> image mai ab women (Khatoon) kai chehrai par <strong>Rectangle </strong>bana hua hai jab kai <strong>dog</strong> kai chehrai par nahe. Issai ye baat sabit hoti hai k <strong>FaceDetector </strong>sirf insaano kai chehron par he kaam krega.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Nateja" duration="0">
+        <p>Is code lab mai apko bataya gaya k aik bunyadi app kesai banani hai jismai bunnyadi sholat ho cheron ko pehchannai ki jisko aap agai istemaal kr saktai hain.</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-49880327-14', 'auto');
+
+    (function() {
+      var gaCodelab = '';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+</body>
+</html>
